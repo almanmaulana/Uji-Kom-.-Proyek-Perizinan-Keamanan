@@ -1,0 +1,324 @@
+/* 🎨 Warna Utama */
+:root {
+    --primary-color: #4CAF50;
+    --panel-color: #ffffff;
+    --text-color: #333;
+    --black-light-color: #666;
+    --border-color: #e6e5e5;
+    --toggle-color: #DDD;
+    --title-icon-color: #CCC;
+
+    --tran-05: all 0.5s ease;
+    --tran-03: all 0.3s ease;
+}
+
+/* 🌙 Mode Gelap */
+body.dark {
+    --primary-color: #2E7D32;
+    --panel-color: #242526;
+    --text-color: #E0E0E0;
+    --black-light-color: #B0B0B0;
+    --border-color: #4D4C4C;
+    --toggle-color: #FFF;
+    --title-icon-color: #fff;
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    min-height: 100vh;
+    background-color: var(--panel-color);
+    font-family: Arial, sans-serif;
+    color: var(--text-color);
+    transition: var(--tran-05);
+    overflow-x: hidden;
+}
+
+/* === Sidebar === */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    padding: 15px;
+    background-color: var(--panel-color);
+    border-right: 1px solid var(--border-color);
+    transition: var(--tran-05);
+    z-index: 2000;
+    overflow: hidden;
+}
+nav.close {
+    width: 70px;
+}
+nav.close .logo {
+    justify-content: center;
+}
+nav.close .nama,
+nav.close .link-name {
+    display: none;
+}
+nav.close .menu-items li a,
+nav.close .menu-items li button {
+    justify-content: center;
+    gap: 0 !important;
+}
+nav.close .menu-items li a i,
+nav.close .menu-items li button i {
+    margin: 0 auto;
+}
+
+nav .logo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+nav .logo-image img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+nav .nama {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-left: 12px;
+    transition: var(--tran-05);
+}
+
+/* === Menu Items === */
+.menu-items {
+    height: calc(100% - 100px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.menu-items li {
+    list-style: none;
+}
+.menu-items li a,
+.menu-items li button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 45px;
+    padding: 0 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--black-light-color);
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+.menu-items li a i,
+.menu-items li button i {
+    font-size: 20px;
+    min-width: 40px;
+    text-align: center;
+}
+.menu-items li a:hover,
+.menu-items li button:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+/* 🌑 Dark Mode Sidebar */
+body.dark nav {
+    background-color: #181818;
+    border-right: 1px solid #333;
+}
+body.dark .menu-items li a,
+body.dark .menu-items li button {
+    color: var(--text-color);
+}
+body.dark .menu-items li a:hover,
+body.dark .menu-items li button:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+/* === Overlay (Mobile) === */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 1500;
+    display: none;
+}
+.sidebar-overlay.active {
+    display: block;
+}
+
+/* === Dashboard === */
+.dashboard {
+    position: relative;
+    left: 250px;
+    width: calc(100% - 250px);
+    background-color: var(--panel-color);
+    min-height: 100vh;
+    transition: var(--tran-05);
+    overflow-x: hidden; /* ✅ cegah nabrak sidebar */
+}
+
+/* Saat sidebar ditutup */
+nav.close ~ .dashboard {
+    left: 70px;
+    width: calc(100% - 70px);
+}
+
+/* === Topbar === */
+.dashboard .top {
+    position: fixed;
+    top: 0;
+    left: 250px;
+    width: calc(100% - 250px);
+    height: 60px;
+    background-color: var(--panel-color);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 1000;
+    transition: var(--tran-05);
+}
+nav.close ~ .dashboard .top {
+    left: 70px;
+    width: calc(100% - 70px);
+}
+.dashboard .top .sidebar-toggle {
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color);
+    position: relative;
+    z-index: 3001;
+}
+.dashboard .top img {
+    width: 40px;
+    border-radius: 50%;
+}
+
+/* === Isi Dashboard === */
+.dash-content {
+    padding: 80px 20px 20px;
+    overflow-x: auto; /* ✅ agar tabel tidak nabrak */
+    max-width: 100%;
+}
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+}
+.card {
+    background: var(--panel-color);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+.card h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: var(--text-color);
+}
+.card p {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* 🌑 Dark Mode isi dashboard */
+body.dark .dashboard,
+body.dark .card,
+body.dark .dashboard .top {
+    background-color: #242526;
+    color: var(--text-color);
+}
+
+/* === 🌙 Switch Dark Mode === */
+.mode {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 10px;
+}
+.mode a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--black-light-color);
+    text-decoration: none;
+    flex: 1;
+}
+.mode-toggle {
+    flex-shrink: 0;
+    position: relative;
+    width: 45px;
+    height: 22px;
+    border-radius: 25px;
+    background-color: var(--toggle-color);
+    cursor: pointer;
+    transition: var(--tran-05);
+}
+.switch:before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background-color: var(--panel-color);
+    transition: var(--tran-03);
+}
+body.dark .switch:before {
+    left: 25px;
+}
+
+/* === Responsif === */
+@media (max-width: 768px) {
+    nav {
+        left: -100%;
+    }
+    nav.active {
+        left: 0;
+    }
+    .dashboard {
+        left: 0;
+        width: 100%;
+    }
+    .dashboard .top {
+        left: 0;
+        width: 100%;
+    }
+    .dashboard .top .sidebar-toggle {
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 3001;
+        background: var(--black-light-color);
+        color: #fff;
+        padding: 8px;
+        border-radius: 6px;
+    }
+    .dashboard .top img {
+        margin-left: auto;
+    }
+}
